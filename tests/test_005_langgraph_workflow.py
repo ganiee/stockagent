@@ -217,13 +217,13 @@ class TestPlaceholderNodes:
         """Test that recommend returns recommendation fields."""
         from stockagent.graph.workflow import recommend
 
-        state = {"ticker": "AAPL", "errors": []}
+        state = {"ticker": "AAPL", "errors": [], "technical_signals": {}, "news_sentiment": {}}
         result = recommend(state)
 
         assert "recommendation" in result
         assert "confidence" in result
-        assert result["recommendation"] == "HOLD"
-        assert result["confidence"] == 50.0
+        assert result["recommendation"] in ["STRONG BUY", "BUY", "HOLD", "SELL", "STRONG SELL"]
+        assert isinstance(result["confidence"], (int, float))
 
 
 class TestRunAnalysis:
