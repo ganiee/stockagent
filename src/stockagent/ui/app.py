@@ -24,6 +24,8 @@ def init_session_state():
         st.session_state.current_ticker = ""
     if "last_analyzed_ticker" not in st.session_state:
         st.session_state.last_analyzed_ticker = ""
+    if "pending_ticker" not in st.session_state:
+        st.session_state.pending_ticker = None
 
 
 def set_ticker(ticker: str):
@@ -40,17 +42,24 @@ def render_header():
 
 def render_ticker_input():
     """Render ticker input section."""
+    # Handle pending ticker from quick select (set before widget renders)
+    default_value = ""
+    if st.session_state.pending_ticker:
+        default_value = st.session_state.pending_ticker
+        st.session_state.pending_ticker = None
+    elif st.session_state.current_ticker:
+        default_value = st.session_state.current_ticker
+
     col1, col2 = st.columns([2, 3])
 
     with col1:
         ticker = st.text_input(
             "Enter Ticker Symbol",
-            value=st.session_state.current_ticker,
+            value=default_value,
             placeholder="e.g., AAPL",
-            key="ticker_input",
             help="Enter a stock ticker symbol (e.g., AAPL for Apple Inc.)",
         )
-        if ticker != st.session_state.current_ticker:
+        if ticker:
             st.session_state.current_ticker = ticker.upper().strip()
 
     with col2:
@@ -60,6 +69,7 @@ def render_ticker_input():
         for i, t in enumerate(quick_tickers):
             with cols[i]:
                 if st.button(t, key=f"quick_{t}", use_container_width=True):
+                    st.session_state.pending_ticker = t
                     st.session_state.current_ticker = t
                     st.rerun()
 
@@ -112,8 +122,8 @@ def render_metrics(result: dict):
 
     # Recommendation metric
     with col4:
-        recommendation = result.get("recommendation", "N/A")
-        confidence = result.get("confidence", 0.0)
+        recommendation = result.get("recommendation") or "N/A"
+        confidence = result.get("confidence") or 0.0
         st.metric(
             label="Recommendation",
             value=recommendation,

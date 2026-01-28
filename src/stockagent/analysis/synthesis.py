@@ -257,13 +257,13 @@ def generate_report(state: dict[str, Any]) -> str:
     Returns:
         Full markdown report string
     """
-    ticker = state.get("ticker", "UNKNOWN")
-    company_name = state.get("company_name", ticker)
-    technical_signals = state.get("technical_signals", {})
-    sentiment = state.get("news_sentiment", {})
-    recommendation = state.get("recommendation", "HOLD")
-    confidence = state.get("confidence", 0.0)
-    factors = state.get("explanation_factors", [])
+    ticker = state.get("ticker") or "UNKNOWN"
+    company_name = state.get("company_name") or ticker
+    technical_signals = state.get("technical_signals") or {}
+    sentiment = state.get("news_sentiment") or {}
+    recommendation = state.get("recommendation") or "HOLD"
+    confidence = state.get("confidence") or 0.0
+    factors = state.get("explanation_factors") or []
     errors = state.get("errors", [])
 
     # Build report sections

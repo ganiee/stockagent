@@ -236,7 +236,7 @@ def create_workflow() -> CompiledStateGraph:
 
     The workflow follows this structure:
     START -> fetch_data -> [technical_analysis, news_sentiment] (parallel)
-          -> synthesize -> recommend -> END
+          -> recommend -> synthesize -> END
 
     Returns:
         Compiled LangGraph StateGraph
@@ -259,13 +259,13 @@ def create_workflow() -> CompiledStateGraph:
     graph.add_edge("fetch_data", "technical_analysis")
     graph.add_edge("fetch_data", "news_sentiment")
 
-    # Both analysis nodes -> synthesize
-    graph.add_edge("technical_analysis", "synthesize")
-    graph.add_edge("news_sentiment", "synthesize")
+    # Both analysis nodes -> recommend
+    graph.add_edge("technical_analysis", "recommend")
+    graph.add_edge("news_sentiment", "recommend")
 
-    # synthesize -> recommend -> END
-    graph.add_edge("synthesize", "recommend")
-    graph.add_edge("recommend", END)
+    # recommend -> synthesize -> END (synthesize needs recommendation data)
+    graph.add_edge("recommend", "synthesize")
+    graph.add_edge("synthesize", END)
 
     # Compile and return
     return graph.compile()
