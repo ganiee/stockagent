@@ -54,3 +54,27 @@
 2. All relevant data from analysis is included
 3. User can understand recommendation rationale
 4. Report can be displayed in Streamlit markdown widget
+
+## Automated Tests
+
+All acceptance criteria are validated by automated tests in `tests/test_007_report_synthesis.py`.
+
+Run tests with:
+```bash
+pytest -m feature007 -v
+```
+
+Expected: 46 tests pass.
+
+### Test Coverage
+
+| AC | Test Class | Tests |
+|----|-----------|-------|
+| AC-1 | TestSynthesisImports | test_generate_report_import_from_synthesis, test_generate_report_import_from_analysis |
+| AC-2 | TestGenerateReport | test_generate_report_contains_all_sections |
+| AC-3 | TestGenerateReport, TestTechnicalSection | test_generate_report_valid_markdown, test_technical_section_is_markdown_table |
+| AC-4 | TestTechnicalSection | test_technical_section_shows_rsi, test_technical_section_shows_macd, test_technical_section_shows_bollinger, test_technical_section_shows_smas, test_technical_section_handles_none_values |
+| AC-5 | TestSentimentSection | test_sentiment_section_shows_headlines, test_sentiment_section_shows_headline_tags, test_sentiment_section_handles_no_headlines |
+| AC-6 | TestRecommendationSection | test_recommendation_section_shows_recommendation, test_recommendation_section_is_bold, test_recommendation_section_shows_confidence, test_recommendation_section_shows_factors |
+| AC-7 | TestReportHeader, TestDisclaimer | test_header_contains_timestamp, test_disclaimer_credits_polygon, test_disclaimer_contains_educational_warning |
+| AC-8 | TestWorkflowIntegration | test_synthesize_returns_report, test_synthesize_not_placeholder, test_run_analysis_returns_populated_synthesis |

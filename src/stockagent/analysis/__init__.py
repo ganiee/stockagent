@@ -25,6 +25,7 @@ from stockagent.analysis.scoring import (
     score_rsi,
     score_sentiment,
 )
+from stockagent.analysis.synthesis import generate_report
 
 __all__ = [
     # Indicators
@@ -49,4 +50,6 @@ __all__ = [
     "score_moving_averages",
     "score_bollinger",
     "score_sentiment",
+    # Synthesis
+    "generate_report",
 ]

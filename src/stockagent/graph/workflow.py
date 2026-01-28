@@ -11,6 +11,7 @@ from stockagent.analysis import (
     calculate_all_indicators,
     calculate_composite_score,
     generate_recommendation,
+    generate_report,
     get_explanation_factors,
 )
 from stockagent.data import PolygonClient, PolygonAPIError
@@ -165,10 +166,9 @@ def news_sentiment_node(state: WorkflowState) -> dict[str, Any]:
 
 
 def synthesize(state: WorkflowState) -> dict[str, Any]:
-    """Synthesize analysis into a report.
+    """Synthesize analysis into a markdown report.
 
-    Placeholder implementation - returns empty synthesis.
-    Will be replaced in feature 007.
+    Generates a comprehensive report from all analysis data.
 
     Args:
         state: Current workflow state
@@ -176,8 +176,15 @@ def synthesize(state: WorkflowState) -> dict[str, Any]:
     Returns:
         Updated state field: synthesis
     """
-    # Placeholder - will be implemented in feature 007
-    return {"synthesis": "Analysis report will be generated here."}
+    try:
+        report = generate_report(state)
+        return {"synthesis": report}
+    except Exception as e:
+        logger.error(f"Error in synthesize: {e}")
+        return {
+            "synthesis": f"Error generating report: {e}",
+            "errors": [f"Report generation error: {e}"],
+        }
 
 
 def recommend(state: WorkflowState) -> dict[str, Any]:

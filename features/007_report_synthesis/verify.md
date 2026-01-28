@@ -153,3 +153,17 @@ assert result.get('recommendation') in synthesis or 'HOLD' in synthesis or 'BUY'
 print('Feature 007 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 007 tests (mocked, no network required)
+pytest -m feature007 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 007
+
+# Run with coverage
+pytest -m feature007 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 46 tests pass.
