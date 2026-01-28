@@ -46,3 +46,17 @@
 1. All indicator functions are pure (same input → same output)
 2. Functions handle edge cases without crashing
 3. Results match standard technical analysis formulas
+
+## Automated Tests
+
+Run feature 003 tests:
+```bash
+pytest -m feature003 -v
+```
+
+Or using the feature test script:
+```bash
+python scripts/run_feature_tests.py 003
+```
+
+All 39 tests in `tests/test_003_technical_indicators.py` must pass.

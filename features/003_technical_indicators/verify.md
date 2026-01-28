@@ -130,3 +130,17 @@ assert calculate_rsi([1]*5, 14) is None  # insufficient data
 print('Feature 003 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 003 tests
+pytest -m feature003 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 003
+
+# Run with coverage
+pytest -m feature003 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 39 tests pass.
