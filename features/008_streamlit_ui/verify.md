@@ -88,11 +88,26 @@ print('Backend for UI: PASSED')
 3. All UI elements match PRD wireframe
 4. Errors display user-friendly messages
 
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 008 tests (mocked Streamlit, no browser required)
+pytest -m feature008 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 008
+
+# Run with coverage
+pytest -m feature008 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 36 tests pass.
+
 ## Note
 
 Streamlit UI verification is primarily manual. The automated checks verify:
 - Module structure is correct
 - Backend integration works
 - App can start
+- Component logic works correctly
 
 Full UI testing requires manual browser interaction.
