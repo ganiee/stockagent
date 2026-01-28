@@ -11,7 +11,7 @@ This is the **authoritative control file** for tracking implementation progress 
 | ID | Feature Name | Status | Summary | Test Command | Spec | Tasks | Acceptance | Verify | Rollback |
 |----|--------------|--------|---------|--------------|------|-------|------------|--------|----------|
 | 001 | project_bootstrap | Done | Project structure, config.py, models.py, requirements.txt | `pytest -m feature001` | [spec](001_project_bootstrap/spec.md) | [tasks](001_project_bootstrap/tasks.md) | [acceptance](001_project_bootstrap/acceptance.md) | [verify](001_project_bootstrap/verify.md) | [rollback](001_project_bootstrap/rollback.md) |
-| 002 | polygon_client | Planned | Polygon.io API client for market data | `pytest -m feature002` | [spec](002_polygon_client/spec.md) | [tasks](002_polygon_client/tasks.md) | [acceptance](002_polygon_client/acceptance.md) | [verify](002_polygon_client/verify.md) | [rollback](002_polygon_client/rollback.md) |
+| 002 | polygon_client | Done | Polygon.io API client with error handling | `pytest -m feature002` | [spec](002_polygon_client/spec.md) | [tasks](002_polygon_client/tasks.md) | [acceptance](002_polygon_client/acceptance.md) | [verify](002_polygon_client/verify.md) | [rollback](002_polygon_client/rollback.md) |
 | 003 | technical_indicators | Planned | RSI, MACD, Bollinger Bands, Moving Averages | `pytest -m feature003` | [spec](003_technical_indicators/spec.md) | [tasks](003_technical_indicators/tasks.md) | [acceptance](003_technical_indicators/acceptance.md) | [verify](003_technical_indicators/verify.md) | [rollback](003_technical_indicators/rollback.md) |
 | 004 | news_sentiment | Planned | DuckDuckGo news search + sentiment scoring | `pytest -m feature004` | [spec](004_news_sentiment/spec.md) | [tasks](004_news_sentiment/tasks.md) | [acceptance](004_news_sentiment/acceptance.md) | [verify](004_news_sentiment/verify.md) | [rollback](004_news_sentiment/rollback.md) |
 | 005 | langgraph_workflow | Planned | LangGraph state machine orchestration | `pytest -m feature005` | [spec](005_langgraph_workflow/spec.md) | [tasks](005_langgraph_workflow/tasks.md) | [acceptance](005_langgraph_workflow/acceptance.md) | [verify](005_langgraph_workflow/verify.md) | [rollback](005_langgraph_workflow/rollback.md) |
@@ -56,7 +56,7 @@ pytest --cov=src/stockagent --cov-report=term-missing
 001_project_bootstrap ✓
          │
          ▼
-002_polygon_client
+002_polygon_client ✓
          │
          ▼
 003_technical_indicators

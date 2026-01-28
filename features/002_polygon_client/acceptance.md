@@ -37,3 +37,17 @@
 2. Invalid ticker produces clear "not found" error
 3. All returned data types match expected schemas
 4. No raw stack traces exposed to callers
+
+## Automated Tests
+
+Run feature 002 tests:
+```bash
+pytest -m feature002 -v
+```
+
+Or using the feature test script:
+```bash
+python scripts/run_feature_tests.py 002
+```
+
+All 20 tests in `tests/test_002_polygon_client.py` must pass.

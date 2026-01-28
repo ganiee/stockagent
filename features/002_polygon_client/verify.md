@@ -106,3 +106,17 @@ print(f'Bars: {len(bars)} days')
 print('Feature 002 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 002 tests (mocked, no network required)
+pytest -m feature002 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 002
+
+# Run with coverage
+pytest -m feature002 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 20 tests pass.
