@@ -78,12 +78,13 @@ class PolygonClient:
         ticker = ticker.upper().strip()
 
         try:
-            response = self._client.get_previous_close(ticker)
+            # get_previous_close_agg returns a list directly
+            results = self._client.get_previous_close_agg(ticker)
 
-            if not response or not response.results:
+            if not results or len(results) == 0:
                 raise TickerNotFoundError(ticker)
 
-            result = response.results[0]
+            result = results[0]
             close_price = float(result.close)
 
             return {
@@ -115,12 +116,12 @@ class PolygonClient:
         try:
             response = self._client.get_ticker_details(ticker)
 
-            if not response or not response.results:
+            if not response:
                 raise TickerNotFoundError(ticker)
 
-            result = response.results
-            company_name = getattr(result, "name", ticker)
-            sector = getattr(result, "sic_description", "Unknown")
+            # The response is the TickerDetails object directly
+            company_name = getattr(response, "name", ticker)
+            sector = getattr(response, "sic_description", "Unknown")
 
             return {
                 "company_name": company_name,

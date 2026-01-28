@@ -18,7 +18,8 @@ def load_config() -> dict[str, str]:
         ValueError: If required environment variables are missing
     """
     # Load .env file from project root if it exists
-    env_path = Path(__file__).parent.parent.parent.parent / ".env"
+    # Path: config.py -> stockagent -> src -> project_root
+    env_path = Path(__file__).parent.parent.parent / ".env"
     load_dotenv(env_path)
 
     # Get required API key
