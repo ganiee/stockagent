@@ -104,3 +104,17 @@ assert result.get('technical_signals') is not None
 print('Feature 005 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 005 tests (mocked, no network required)
+pytest -m feature005 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 005
+
+# Run with coverage
+pytest -m feature005 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 20 tests pass.

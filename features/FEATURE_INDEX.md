@@ -14,7 +14,7 @@ This is the **authoritative control file** for tracking implementation progress 
 | 002 | polygon_client | Done | Polygon.io API client with error handling | `pytest -m feature002` | [spec](002_polygon_client/spec.md) | [tasks](002_polygon_client/tasks.md) | [acceptance](002_polygon_client/acceptance.md) | [verify](002_polygon_client/verify.md) | [rollback](002_polygon_client/rollback.md) |
 | 003 | technical_indicators | Done | RSI, MACD, Bollinger Bands, SMA calculations | `pytest -m feature003` | [spec](003_technical_indicators/spec.md) | [tasks](003_technical_indicators/tasks.md) | [acceptance](003_technical_indicators/acceptance.md) | [verify](003_technical_indicators/verify.md) | [rollback](003_technical_indicators/rollback.md) |
 | 004 | news_sentiment | Done | DuckDuckGo news + keyword sentiment scoring | `pytest -m feature004` | [spec](004_news_sentiment/spec.md) | [tasks](004_news_sentiment/tasks.md) | [acceptance](004_news_sentiment/acceptance.md) | [verify](004_news_sentiment/verify.md) | [rollback](004_news_sentiment/rollback.md) |
-| 005 | langgraph_workflow | Planned | LangGraph state machine orchestration | `pytest -m feature005` | [spec](005_langgraph_workflow/spec.md) | [tasks](005_langgraph_workflow/tasks.md) | [acceptance](005_langgraph_workflow/acceptance.md) | [verify](005_langgraph_workflow/verify.md) | [rollback](005_langgraph_workflow/rollback.md) |
+| 005 | langgraph_workflow | Done | LangGraph state machine orchestration | `pytest -m feature005` | [spec](005_langgraph_workflow/spec.md) | [tasks](005_langgraph_workflow/tasks.md) | [acceptance](005_langgraph_workflow/acceptance.md) | [verify](005_langgraph_workflow/verify.md) | [rollback](005_langgraph_workflow/rollback.md) |
 | 006 | recommendation_engine | Planned | Scoring system and recommendation logic | `pytest -m feature006` | [spec](006_recommendation_engine/spec.md) | [tasks](006_recommendation_engine/tasks.md) | [acceptance](006_recommendation_engine/acceptance.md) | [verify](006_recommendation_engine/verify.md) | [rollback](006_recommendation_engine/rollback.md) |
 | 007 | report_synthesis | Planned | Markdown report generation | `pytest -m feature007` | [spec](007_report_synthesis/spec.md) | [tasks](007_report_synthesis/tasks.md) | [acceptance](007_report_synthesis/acceptance.md) | [verify](007_report_synthesis/verify.md) | [rollback](007_report_synthesis/rollback.md) |
 | 008 | streamlit_ui | Planned | Full Streamlit user interface | `pytest -m feature008` | [spec](008_streamlit_ui/spec.md) | [tasks](008_streamlit_ui/tasks.md) | [acceptance](008_streamlit_ui/acceptance.md) | [verify](008_streamlit_ui/verify.md) | [rollback](008_streamlit_ui/rollback.md) |
@@ -67,7 +67,7 @@ pytest --cov=src/stockagent --cov-report=term-missing
          │                  │
          └────────┬─────────┘
                   ▼
-005_langgraph_workflow
+005_langgraph_workflow ✓
          │
          ▼
 006_recommendation_engine

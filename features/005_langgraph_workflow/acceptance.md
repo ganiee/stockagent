@@ -47,3 +47,25 @@
 2. All nodes execute in correct order
 3. Final state contains all expected data
 4. Errors are captured, not raised
+
+## Automated Tests
+
+All acceptance criteria are validated by automated tests in `tests/test_005_langgraph_workflow.py`.
+
+Run tests with:
+```bash
+pytest -m feature005 -v
+```
+
+Expected: 20 tests pass.
+
+### Test Coverage
+
+| AC | Test Class | Tests |
+|----|-----------|-------|
+| AC-1 | TestWorkflowImports | test_create_workflow_import, test_run_analysis_import, test_node_functions_import |
+| AC-2 | TestCreateWorkflow | test_create_workflow_returns_compiled_graph, test_workflow_compiles_without_error |
+| AC-3 | TestRunAnalysis | test_run_analysis_returns_complete_state |
+| AC-4 | TestFetchDataNode, TestRunAnalysis | test_fetch_data_with_no_ticker, test_fetch_data_handles_api_error, test_run_analysis_accumulates_errors |
+| AC-5 | TestWorkflowIntegration | test_workflow_state_flows_through_nodes |
+| AC-6 | TestFetchDataNode, TestTechnicalAnalysisNode, TestNewsSentimentNode, TestPlaceholderNodes | Various state transition tests |
