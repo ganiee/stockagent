@@ -54,3 +54,27 @@
 2. Extreme bullish signals → STRONG BUY
 3. Extreme bearish signals → STRONG SELL
 4. Explanations help user understand the recommendation
+
+## Automated Tests
+
+All acceptance criteria are validated by automated tests in `tests/test_006_recommendation_engine.py`.
+
+Run tests with:
+```bash
+pytest -m feature006 -v
+```
+
+Expected: 63 tests pass.
+
+### Test Coverage
+
+| AC | Test Class | Tests |
+|----|-----------|-------|
+| AC-1 | TestScoringImports | test_calculate_composite_score_import, test_generate_recommendation_import, test_get_explanation_factors_import, test_imports_from_analysis_package |
+| AC-2 | TestRSIScoring | test_rsi_oversold_bullish, test_rsi_overbought_bearish, test_rsi_neutral, test_rsi_none_returns_zero |
+| AC-3 | TestMACDScoring | test_macd_strong_bullish, test_macd_bearish, test_macd_none_returns_zero |
+| AC-4 | TestCompositeScore | test_all_bullish_signals, test_all_bearish_signals, test_mixed_signals_near_zero, test_deterministic, test_score_clamped_* |
+| AC-5 | TestGenerateRecommendation | test_strong_buy_threshold, test_buy_threshold, test_hold_threshold, test_sell_threshold, test_strong_sell_threshold, test_boundary_values |
+| AC-6 | TestGenerateRecommendation | test_confidence_is_abs_score, test_confidence_capped_at_100 |
+| AC-7 | TestExplanationFactors | test_returns_list_of_strings, test_includes_rsi_factor, test_includes_macd_factor, test_includes_sentiment_factor, test_sorted_by_contribution |
+| AC-8 | TestWorkflowIntegration | test_recommend_returns_real_recommendation, test_recommend_not_placeholder, test_run_analysis_returns_real_recommendation |

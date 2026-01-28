@@ -6,7 +6,13 @@ from typing import Annotated, Any
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
-from stockagent.analysis import analyze_news_sentiment, calculate_all_indicators
+from stockagent.analysis import (
+    analyze_news_sentiment,
+    calculate_all_indicators,
+    calculate_composite_score,
+    generate_recommendation,
+    get_explanation_factors,
+)
 from stockagent.data import PolygonClient, PolygonAPIError
 from stockagent.models import StockAnalysisState
 
@@ -177,8 +183,8 @@ def synthesize(state: WorkflowState) -> dict[str, Any]:
 def recommend(state: WorkflowState) -> dict[str, Any]:
     """Generate recommendation based on analysis.
 
-    Placeholder implementation - returns HOLD with 50% confidence.
-    Will be replaced in feature 006.
+    Uses scoring engine to combine technical signals and sentiment
+    into a final recommendation with confidence and explanation.
 
     Args:
         state: Current workflow state
@@ -186,12 +192,36 @@ def recommend(state: WorkflowState) -> dict[str, Any]:
     Returns:
         Updated state fields: recommendation, confidence, explanation_factors
     """
-    # Placeholder - will be implemented in feature 006
-    return {
-        "recommendation": "HOLD",
-        "confidence": 50.0,
-        "explanation_factors": ["Placeholder recommendation - full analysis pending"],
-    }
+    technical_signals = state.get("technical_signals", {})
+    sentiment = state.get("news_sentiment", {})
+
+    try:
+        # Calculate composite score
+        score = calculate_composite_score(technical_signals, sentiment)
+
+        # Generate recommendation and confidence
+        recommendation, confidence = generate_recommendation(score)
+
+        # Get explanation factors
+        factors = get_explanation_factors(technical_signals, sentiment)
+
+        # Add score to factors for transparency
+        if not factors:
+            factors = ["Insufficient data for detailed analysis"]
+
+        return {
+            "recommendation": recommendation,
+            "confidence": confidence,
+            "explanation_factors": factors,
+        }
+    except Exception as e:
+        logger.error(f"Error in recommend: {e}")
+        return {
+            "recommendation": "HOLD",
+            "confidence": 0.0,
+            "explanation_factors": [f"Error generating recommendation: {e}"],
+            "errors": [f"Recommendation error: {e}"],
+        }
 
 
 def create_workflow() -> CompiledStateGraph:

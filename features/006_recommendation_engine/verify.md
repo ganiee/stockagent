@@ -145,3 +145,17 @@ assert result.get('recommendation') is not None
 print('Feature 006 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 006 tests (mocked, no network required)
+pytest -m feature006 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 006
+
+# Run with coverage
+pytest -m feature006 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 63 tests pass.

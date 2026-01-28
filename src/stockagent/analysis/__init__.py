@@ -15,6 +15,16 @@ from stockagent.analysis.news_sentiment import (
     analyze_sentiment,
     fetch_news,
 )
+from stockagent.analysis.scoring import (
+    calculate_composite_score,
+    generate_recommendation,
+    get_explanation_factors,
+    score_bollinger,
+    score_macd,
+    score_moving_averages,
+    score_rsi,
+    score_sentiment,
+)
 
 __all__ = [
     # Indicators
@@ -30,4 +40,13 @@ __all__ = [
     "analyze_news_sentiment",
     "analyze_sentiment",
     "fetch_news",
+    # Scoring
+    "calculate_composite_score",
+    "generate_recommendation",
+    "get_explanation_factors",
+    "score_rsi",
+    "score_macd",
+    "score_moving_averages",
+    "score_bollinger",
+    "score_sentiment",
 ]
