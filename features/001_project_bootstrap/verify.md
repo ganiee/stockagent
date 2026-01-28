@@ -95,3 +95,17 @@ from stockagent.models import StockAnalysisState
 print('Feature 001 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 001 tests
+pytest -m feature001 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 001
+
+# Run with coverage
+pytest -m feature001 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 18 tests pass.

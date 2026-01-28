@@ -50,3 +50,17 @@
 2. Running `pip freeze | grep -E "langgraph|streamlit|polygon|pandas|numpy"` shows installed packages
 3. Python REPL can import all modules without errors
 4. Missing API key produces human-readable error, not stack trace
+
+## Automated Tests
+
+Run feature 001 tests:
+```bash
+pytest -m feature001 -v
+```
+
+Or using the feature test script:
+```bash
+python scripts/run_feature_tests.py 001
+```
+
+All 18 tests in `tests/test_001_project_bootstrap.py` must pass.

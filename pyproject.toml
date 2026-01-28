@@ -1,0 +1,34 @@
+[project]
+name = "stockagent"
+version = "0.1.0"
+description = "LangGraph-based stock analysis agent"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+markers = [
+    "feature001: tests for feature 001 (project bootstrap)",
+    "feature002: tests for feature 002 (polygon client)",
+    "feature003: tests for feature 003 (technical indicators)",
+    "feature004: tests for feature 004 (news sentiment)",
+    "feature005: tests for feature 005 (langgraph workflow)",
+    "feature006: tests for feature 006 (recommendation engine)",
+    "feature007: tests for feature 007 (report synthesis)",
+    "feature008: tests for feature 008 (streamlit ui)",
+    "feature009: tests for feature 009 (tests and quality)",
+]
+
+[tool.coverage.run]
+source = ["src/stockagent"]
+omit = ["*/tests/*", "*/__init__.py"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "if __name__ == .__main__.:",
+    "raise NotImplementedError",
+]

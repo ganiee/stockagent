@@ -6,7 +6,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 StockAgent is a LangGraph-based stock analysis agent that analyzes individual stocks using Polygon.io market data, technical indicators, and news sentiment. It provides Buy/Sell/Hold recommendations with confidence scores via a Streamlit UI.
 
-**Status:** Early development - PRD exists in `docs/prd.md`, implementation follows feature-based development.
+**PRD:** `docs/PRD.md`
+**Feature Index:** `features/FEATURE_INDEX.md` (authoritative status tracker)
 
 ## Commands
 
@@ -14,17 +15,25 @@ StockAgent is a LangGraph-based stock analysis agent that analyzes individual st
 # Activate virtual environment
 source venv/bin/activate
 
-# Install dependencies (once requirements.txt exists)
+# Install dependencies
 pip install -r requirements.txt
 
-# Run Streamlit UI
+# Run all tests
+pytest -v
+
+# Run tests for a specific feature
+pytest -m feature001 -v
+pytest -m feature002 -v
+# ... etc
+
+# Run tests with coverage
+pytest --cov=src/stockagent --cov-report=term-missing
+
+# Run feature tests via script
+python scripts/run_feature_tests.py 001
+
+# Run Streamlit UI (after feature 008)
 streamlit run src/stockagent/ui/app.py
-
-# Run CLI analysis
-python -m stockagent
-
-# Run tests (once implemented)
-python -m pytest
 ```
 
 ## Environment Setup
@@ -39,41 +48,53 @@ fetch_data → [parallel: technical_analysis, news_sentiment] → synthesize →
 ```
 
 ### State Object
-`StockAnalysisState` TypedDict with fields:
+`StockAnalysisState` TypedDict in `src/stockagent/models.py`:
 - **input:** ticker symbol
-- **fetched:** price_data, company_name, current_price, fundamental_data
+- **fetched:** price_data, company_name, current_price, previous_close
 - **computed:** technical_signals, news_sentiment
 - **output:** synthesis, recommendation, confidence
 - **errors:** list of error messages
 
 ### Module Structure
-- `src/stockagent/data/polygon_client.py` - Polygon.io API wrapper (aggregates, ticker details, previous close)
-- `src/stockagent/analysis/` - Technical indicators (RSI, MACD, Bollinger, MAs) and news sentiment
+- `src/stockagent/config.py` - Configuration and API key loading
+- `src/stockagent/models.py` - TypedDict definitions for state
+- `src/stockagent/data/polygon_client.py` - Polygon.io API wrapper
+- `src/stockagent/analysis/` - Technical indicators and news sentiment
 - `src/stockagent/graph/workflow.py` - LangGraph state machine
 - `src/stockagent/ui/app.py` - Streamlit entry point
 
 ### Technical Indicators
-- RSI(14), MACD, Bollinger Bands(20), Moving Averages (20/50/200)
+- RSI(14), MACD(12/26/9), Bollinger Bands(20), Moving Averages (20/50/200)
 - All calculations use real data from Polygon, no LLM-generated prices
 
 ## Feature-Based Development
 
 Implementation follows sequential features in `features/00x_*/`:
-1. `001_project_bootstrap` - Skeleton, config, placeholder UI
-2. `002_polygon_client` - Data integration with rate limiting
-3. `003_indicators` - Technical analysis math
-4. `004_langgraph_workflow` - State machine wiring
-5. `005_news_sentiment` - DuckDuckGo news + keyword sentiment
-6. `006_synthesis_and_recommendation` - Report generation + scoring thresholds
-7. `007_streamlit_app` - Full UI with tabs
-8. `008_tests_and_quality` - pytest, formatting
+1. `001_project_bootstrap` - Project structure, config, models, dependencies ✓
+2. `002_polygon_client` - Polygon.io API integration
+3. `003_technical_indicators` - RSI, MACD, Bollinger, MAs
+4. `004_news_sentiment` - DuckDuckGo news + keyword sentiment
+5. `005_langgraph_workflow` - State machine wiring
+6. `006_recommendation_engine` - Scoring and recommendation logic
+7. `007_report_synthesis` - Markdown report generation
+8. `008_streamlit_ui` - Full UI with tabs
+9. `009_tests_and_quality` - Comprehensive test suite
 
-Each feature folder contains `spec.md`, `tasks.md`, and `acceptance.md`.
+Each feature folder contains `spec.md`, `tasks.md`, `acceptance.md`, `verify.md`, `rollback.md`.
+
+## Testing
+
+Tests are organized by feature with pytest markers:
+- `tests/test_001_project_bootstrap.py` - Feature 001 tests
+- Run with: `pytest -m feature001 -v`
+
+All external API calls (Polygon.io, DuckDuckGo) must be mocked in tests.
 
 ## Key Dependencies
 
-- LangGraph for workflow orchestration
-- Streamlit for UI
-- Polygon.io SDK for market data
-- duckduckgo-search for news headlines
-- pandas/numpy for indicator calculations
+- langgraph - Workflow orchestration
+- streamlit - UI framework
+- polygon-api-client - Market data
+- duckduckgo-search - News headlines
+- pandas/numpy - Indicator calculations
+- pytest/pytest-cov/pytest-mock - Testing
