@@ -10,8 +10,14 @@ from stockagent.analysis.indicators import (
     interpret_macd,
     interpret_rsi,
 )
+from stockagent.analysis.news_sentiment import (
+    analyze_news_sentiment,
+    analyze_sentiment,
+    fetch_news,
+)
 
 __all__ = [
+    # Indicators
     "calculate_all_indicators",
     "calculate_sma",
     "calculate_rsi",
@@ -20,4 +26,8 @@ __all__ = [
     "calculate_bollinger_bands",
     "interpret_rsi",
     "interpret_macd",
+    # News sentiment
+    "analyze_news_sentiment",
+    "analyze_sentiment",
+    "fetch_news",
 ]

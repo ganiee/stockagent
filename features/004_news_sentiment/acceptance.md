@@ -40,3 +40,17 @@
 1. Sentiment analysis is deterministic for same headline
 2. Real news headlines produce reasonable sentiment scores
 3. No crashes on edge cases or API issues
+
+## Automated Tests
+
+Run feature 004 tests:
+```bash
+pytest -m feature004 -v
+```
+
+Or using the feature test script:
+```bash
+python scripts/run_feature_tests.py 004
+```
+
+All 31 tests in `tests/test_004_news_sentiment.py` must pass.

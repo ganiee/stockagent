@@ -108,3 +108,17 @@ assert 'overall_score' in result
 print('Feature 004 verification: PASSED')
 "
 ```
+
+## Run Automated Tests (Recommended)
+```bash
+# Run all feature 004 tests (mocked, no network required)
+pytest -m feature004 -v
+
+# Or use the feature test script
+python scripts/run_feature_tests.py 004
+
+# Run with coverage
+pytest -m feature004 --cov=src/stockagent --cov-report=term-missing
+```
+
+Expected: All 31 tests pass.
